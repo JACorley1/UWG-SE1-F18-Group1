@@ -17,17 +17,17 @@ class TestToStringFull {
 		LocalDateTime start = LocalDateTime.now().plusDays(1);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of("Alice", "Trudy");
-		Event event = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
 		
 		String result = event.toStringFull();
 
 		String expectedString = "";
 		expectedString += "Name: Bob" + System.lineSeparator();
+		expectedString += "Description: description" + System.lineSeparator();
+		expectedString += "Visibility: Public" + System.lineSeparator();
 		expectedString += "Start time: " + start + System.lineSeparator();
 		expectedString += "End time: " + end + System.lineSeparator();
 		expectedString += "Location: location" + System.lineSeparator();
-		expectedString += "Description: description" + System.lineSeparator();
-		expectedString += "Visibility: Public" + System.lineSeparator();
 		expectedString += "Attendees: Alice, Trudy" + System.lineSeparator();
 		
 		assertEquals(expectedString, result);

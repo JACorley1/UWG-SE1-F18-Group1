@@ -9,63 +9,71 @@ import java.util.List;
  */
 public class Calendar {
 	
-	private ArrayList<Event> events;
+	/** The Constant EVENT_NULL. */
+	private static final String EVENT_NULL = "Event cannot be null";
 	
-	/** Return the collection of events in the calendar
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the collection of events in the calendar
-	 */
-	public ArrayList<Event> getEvents(){
-		return this.events;
-	}
-	
-	/** Create a new initially empty Calendar
-	 * 
+	/** The time commitments. */
+	private ArrayList<TimeCommitment> timeCommitments;
+
+	/**
+	 *  Create a new initially empty Calendar.
+	 *
 	 * @precondition none
 	 * @postcondition getEvents().size() == 0
 	 */
 	public Calendar() {
-		this.events = new ArrayList<Event>();
+		this.timeCommitments = new ArrayList<TimeCommitment>();
 	}
 	
-	/** Add a new event to the calendar
-	 * 
-	 * @precondition event != null
-	 * @postcondition getEvents().size() == getEvents().size()@pre + 1
-	 * 
-	 * @param event event to be added to the calendar
+	/**
+	 *  Return the collection of events in the calendar.
+	 *
+	 * @precondition none
+	 * @postcondition none
+	 *
+	 * @return the collection of events in the calendar
 	 */
-	public void addEvent(Event event) {
-		if (event == null) {
-			throw new IllegalArgumentException("Event cannot be null");
+	public ArrayList<TimeCommitment> getTimeCommitments() {
+		return this.timeCommitments;
+	}
+	
+	/**
+	 *  Add a new time commitment to the calendar.
+	 *
+	 * @param timeCommitment 			time commitment to be added to the calendar
+	 * @precondition timeCommitment != null
+	 * @postcondition getTimeCommitments().size() == getTimeCommitments().size()@prev + 1
+	 */
+	public void addTimeCommitment(TimeCommitment timeCommitment) {
+		if (timeCommitment == null) {
+			throw new NullPointerException(EVENT_NULL);
 		}
 		
-		this.events.add(event);
+		this.timeCommitments.add(timeCommitment);
 	}
 	
-	/** Finds and returns the list of events in the calendar that would conflict with the specified event
+	/**
+	 *  Finds and returns the list of events in the calendar that would conflict with the specified event.
+	 *
+	 * @param timeCommitment the time commitment to check for conflicts
 	 * 
-	 * @precondition event != null
+	 * @precondition timeCommitment != null
 	 * @postcondition none
 	 * 
-	 * @param event the event to check for conflicts
-	 * 
-	 * @return the list of events in the calendar that would conflict with the specified event
+	 * @return the time commitments in the calendar that would conflict with the specified event
 	 */
-	public List<Event> declareConflicts(Event event) {
-		if (event == null) {
-			throw new IllegalArgumentException("Event cannot be null");
+	public List<TimeCommitment> declareConflicts(TimeCommitment timeCommitment) {
+		if (timeCommitment == null) {
+			throw new NullPointerException(EVENT_NULL);
 		}
-		List<Event> conflicts = new ArrayList<Event>();
 		
-		for(Event current: this.events) {
-			if(!event.getStartTime().isBefore(current.getStartTime()) && !event.getStartTime().isAfter(current.getEndTime())) {
+		List<TimeCommitment> conflicts = new ArrayList<TimeCommitment>();
+		
+		for (TimeCommitment current: this.timeCommitments) {
+			if (!timeCommitment.getStartTime().isBefore(current.getStartTime()) && !timeCommitment.getStartTime().isAfter(current.getEndTime())) {
 				conflicts.add(current);
 			}
-			if(!event.getEndTime().isBefore(current.getStartTime()) && !event.getEndTime().isAfter(current.getEndTime())) {
+			if (!timeCommitment.getEndTime().isBefore(current.getStartTime()) && !timeCommitment.getEndTime().isAfter(current.getEndTime())) {
 				conflicts.add(current);
 			}
 		}

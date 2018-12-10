@@ -27,28 +27,22 @@ public abstract class TimeCommitment {
 	/**
 	 * Instantiates a new object of the TimeCommitment class.
 	 *
+	 * @param name 			name of the time commitment
+	 * @param description 			brief description of time commitment
+	 * @param visibility 			visibility of time commitment
+	 * @param startTime 			the start time
+	 * @param endTime 			the end time
+	 * @throws NullPointerException if any parameter is null.
 	 * @precondition name != null
 	 * 				 && description != null 
 	 * 				 && visibility != null 
 	 * 				 && startTime != null 
 	 * 				 && endTime != null
-	 * 
 	 * @postcondition getName() == name
 	 * 				  && getDescription() == description
 	 * 				  && getVisibility() == visibility
 	 * 				  && getStartTime() == startTime
 	 * 				  && getEndTime() == endTime
-	 *
-	 * @param name
-	 * 			name of the time commitment
-	 * @param description 
-	 * 			brief description of time commitment
-	 * @param visibility 
-	 * 			visibility of time commitment
-	 * @param startTime 
-	 * 			the start time
-	 * @param endTime 
-	 * 			the end time
 	 */
 	public TimeCommitment(String name, String description, Visibility visibility, LocalDateTime startTime, LocalDateTime endTime) {
 		if (name == null) {
@@ -78,11 +72,10 @@ public abstract class TimeCommitment {
 	
 	/**
 	 * Gets the name.
-	 * 
+	 *
+	 * @return the name
 	 * @precondition none
 	 * @postcondition none
-	 * 
-	 * @return the name
 	 */
 	public String getName() {
 		return this.name;
@@ -90,12 +83,10 @@ public abstract class TimeCommitment {
 	
 	/**
 	 * Gets the description.
-	 * 
+	 *
+	 * @return the description
 	 * @precondition none
 	 * @postcondition none
-	 * 
-	 * @return the description
-	 * 
 	 */
 	public String getDescription() {
 		return this.description;
@@ -103,11 +94,10 @@ public abstract class TimeCommitment {
 	
 	/**
 	 * Gets the visibility.
-	 * 
-	 * @precondition none
-	 * @postcondition none
 	 *
 	 * @return the visibility
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public Visibility getVisibility() {
 		return this.visibility;
@@ -115,11 +105,10 @@ public abstract class TimeCommitment {
 	
 	/**
 	 * Gets the start time.
-	 * 
-	 * @precondition none
-	 * @postcondition none
 	 *
 	 * @return the start time
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public LocalDateTime getStartTime() {
 		return this.startTime;
@@ -127,13 +116,32 @@ public abstract class TimeCommitment {
 	
 	/**
 	 * Gets the end time.
-	 * 
-	 * @precondition none
-	 * @postcondition none
 	 *
 	 * @return the end time
+	 * @precondition none
+	 * @postcondition none
 	 */
 	public LocalDateTime getEndTime() {
 		return this.endTime;
+	}
+
+	/**
+	 * Generate a multi-line full string representation of the time commitment.
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return Multi-line full string representation
+	 */
+	public String toStringFull() {
+		var fullCommitmentDetails = "";
+		
+		fullCommitmentDetails += "Name: " + this.name + System.lineSeparator();
+		fullCommitmentDetails += "Description: " + this.description + System.lineSeparator();
+		fullCommitmentDetails += "Visibility: " + this.visibility + System.lineSeparator();
+		fullCommitmentDetails += "Start time: " + this.startTime + System.lineSeparator();
+		fullCommitmentDetails += "End time: " + this.endTime + System.lineSeparator();
+		
+		return fullCommitmentDetails;
 	}
 }

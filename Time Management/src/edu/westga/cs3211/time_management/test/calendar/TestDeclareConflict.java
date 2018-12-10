@@ -31,9 +31,9 @@ class TestDeclareConflict {
 		LocalDateTime start = LocalDateTime.now().plusDays(100);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
 		
-		List<Event> result = calendar.declareConflicts(event);
+		var result = calendar.declareConflicts(event);
 		
 		assertEquals(0, result.size(), "checking number of conflicts");
 	}
@@ -44,12 +44,12 @@ class TestDeclareConflict {
 		LocalDateTime start = LocalDateTime.now().plusDays(100);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event1 = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
-		calendar.addEvent(event1);
+		Event event1 = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
+		calendar.addTimeCommitment(event1);
 		
-		Event event = new Event("Bob", start.minusDays(3), end.minusDays(3), "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start.minusDays(3), end.minusDays(3), "location", attendees);
 		
-		List<Event> result = calendar.declareConflicts(event);
+		var result = calendar.declareConflicts(event);
 		
 		assertEquals(0, result.size(), "checking number of conflicts");
 	}
@@ -60,12 +60,12 @@ class TestDeclareConflict {
 		LocalDateTime start = LocalDateTime.now().plusDays(100);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event1 = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
-		calendar.addEvent(event1);
+		Event event1 = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
+		calendar.addTimeCommitment(event1);
 		
-		Event event = new Event("Bob", start.plusDays(3), end.plusDays(3), "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start.plusDays(3), end.plusDays(3), "location", attendees);
 		
-		List<Event> result = calendar.declareConflicts(event);
+		var result = calendar.declareConflicts(event);
 		
 		assertEquals(0, result.size(), "checking number of conflicts");
 	}
@@ -76,12 +76,12 @@ class TestDeclareConflict {
 		LocalDateTime start = LocalDateTime.now().plusDays(100);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event1 = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
-		calendar.addEvent(event1);
+		Event event1 = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
+		calendar.addTimeCommitment(event1);
 		
-		Event event = new Event("Bob", start.minusHours(1), end.minusHours(1), "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start.minusHours(1), end.minusHours(1), "location", attendees);
 		
-		List<Event> result = calendar.declareConflicts(event);
+		var result = calendar.declareConflicts(event);
 		
 		assertEquals(1, result.size(), "checking number of conflicts");
 	}
@@ -92,12 +92,12 @@ class TestDeclareConflict {
 		LocalDateTime start = LocalDateTime.now().plusDays(100);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event1 = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
-		calendar.addEvent(event1);
+		Event event1 = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
+		calendar.addTimeCommitment(event1);
 		
-		Event event = new Event("Bob", start.plusHours(1), end.plusHours(1), "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start.plusHours(1), end.plusHours(1), "location", attendees);
 		
-		List<Event> result = calendar.declareConflicts(event);
+		var result = calendar.declareConflicts(event);
 		
 		assertEquals(1, result.size(), "checking number of conflicts");
 	}

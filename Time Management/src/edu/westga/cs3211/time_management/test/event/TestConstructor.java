@@ -19,9 +19,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 		
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event(null, start, end, "", "", attendees, Visibility.PUBLIC);
+							new Event(null, "", Visibility.PUBLIC, start, end, "", attendees);
 						}
 					);
 	}
@@ -33,9 +33,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", null, end, "", "", attendees, Visibility.PUBLIC);
+							new Event("Bob", "", Visibility.PUBLIC, null, end, "", attendees);
 						}
 					);
 	}
@@ -46,9 +46,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", start, null, "", "", attendees, Visibility.PUBLIC);
+							new Event("Bob", "", Visibility.PUBLIC, start, null, "", attendees);
 						}
 					);
 	}
@@ -59,9 +59,9 @@ class TestConstructor {
 		LocalDateTime end = start.plusDays(1);
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", start, end, "", "", null, Visibility.PUBLIC);
+							new Event("Bob", "", Visibility.PUBLIC, start, end, "", null);
 						}
 					);
 	}
@@ -73,9 +73,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", start, end, null, "", attendees, Visibility.PUBLIC);
+							new Event("Bob", "", Visibility.PUBLIC, start, end, null, attendees);
 						}
 					);
 	}
@@ -87,9 +87,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", start, end, "", null, attendees, Visibility.PUBLIC);
+							new Event("Bob", null, Visibility.PUBLIC, start, end, "", attendees);
 						}
 					);
 	}
@@ -101,9 +101,9 @@ class TestConstructor {
 		List<String> attendees = List.of();
 			
 		assertThrows(
-						IllegalArgumentException.class, 
+						NullPointerException.class, 
 						()->{
-							new Event("Bob", start, end, "", "", attendees, null);
+							new Event("Bob", "", null, start, end, "", attendees);
 						}
 					);
 	}
@@ -114,7 +114,7 @@ class TestConstructor {
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
 		
-		Event result = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
+		Event result = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
 		
 		assertEquals("Bob", result.getName(), "checking name");
 		assertEquals(start, result.getStartTime(), "checking start time");

@@ -3,110 +3,69 @@ package edu.westga.cs3211.time_management.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/** Store basic information for an event.
+/**
+ * Store basic information for an event.
  * 
- * @author Lucas Carlson, Carson Bedrosian, Nolan Williams, Kevin Flynn, Jonathan Corley, Tristen Rivera, Tyler Scott, Dexter Tarver
+ * @author Lucas Carlson, Carson Bedrosian, Nolan Williams, Kevin Flynn,
+ *         Jonathan Corley, Tristen Rivera, Tyler Scott, Dexter Tarver
  */
-public class Event {
-	
-	private String name;
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+public class Event extends TimeCommitment {
+
 	private String location;
-	private String description;
 	private List<String> attendees;
-	private Visibility visibility;
-	
-	/** Creates a new Event
+
+	/**
+	 * Creates a new Event
 	 * 
-	 * @precondition EventDataValidator.checkName(name) &&
-	 * 				 EventDataValidator.checkStartTime(start) &&
-	 * 				 EventDataValidator.checkEndTime(start, end) &&
-	 * 				 EventDataValidator.checkAttendees(attendees) &&
-	 * 				 location != null &&
-	 * 				 description != null &&
-	 * 				 visibility != null
-	 * @postcondition getName() == name &&
-	 * 				  getStartTime() == startTime &&
-	 * 				  getEndTime() == endTime &&
-	 * 				  getLocation() == location &&
-	 * 				  getDescription() == description &&
-	 * 				  getAttendees() == attendees &&
-	 * 				  getVisibility() == visibility
+	 * @precondition name != null
+	 * 				 && description != null
+	 * 				 && visibility != null
+	 * 				 && startTime != null
+	 * 				 && endTime != null
+	 * 				 location != null
+	 * 				 attendees != null
 	 * 
-	 * @param name name of the event
-	 * @param start start time for the event
-	 * @param end end time for the event
-	 * @param location location for the event
-	 * @param description description of the event
-	 * @param attendees list of the names of attendees for the event
-	 * @param visibility visibility of the event
+	 * @postcondition getName() == name 
+	 * 				  && getDescription() == description
+	 * 				  && getVisibility() == visibility
+	 * 				  && getStartTime() == startTime
+	 * 				  && getEndTime() == endTime
+	 * 				  && getLocation() == location
+	 * 				  && getAttendees() == attendees
+	 * 
+	 * @param name
+	 * 			name of the event
+	 * @param description 
+	 * 			description of the event
+	 * @param visibility
+	 * 			visibility of the event
+	 * @param startTime
+	 * 			start time of event
+	 * @param endTime
+	 * 			end time of event
+	 * @param location
+	 * 			location of event
+	 * @param attendees
+	 * 			other people who will be attending the event
+	 * 
+	 * @throws NullPointerException if any parameter is null
 	 */
-	public Event(String name, LocalDateTime start, LocalDateTime end, String location, String description, List<String> attendees, Visibility visibility) {
-		if(!EventDataValidator.checkName(name)) {
-			throw new IllegalArgumentException("Invalid name");
+	public Event(String name, String description, Visibility visibility, LocalDateTime startTime, LocalDateTime endTime, String location, List<String> attendees) {
+		super(name, description, visibility, startTime, endTime);
+
+		if (location == null) {
+			throw new NullPointerException("Location cannot be null");
 		}
-		if(!EventDataValidator.checkStartTime(start)) {
-			throw new IllegalArgumentException("Invalid start time");
+		if (attendees == null) {
+			throw new NullPointerException("Attendees cannot be null");
 		}
-		if(!EventDataValidator.checkEndTime(start, end)) {
-			throw new IllegalArgumentException("Invalid end time");
-		}
-		if(!EventDataValidator.checkAttendees(attendees)) {
-			throw new IllegalArgumentException("Invalid attendees");
-		}
-		if(location == null) {
-			throw new IllegalArgumentException("Invalid location");
-		}
-		if(description == null) {
-			throw new IllegalArgumentException("Invalid description");
-		}
-		if(visibility == null) {
-			throw new IllegalArgumentException("Invalid visibility");
-		}
-		this.name = name;
-		this.startTime = start;
-		this.endTime = end;
+		
 		this.location = location;
-		this.description = description;
 		this.attendees = attendees;
-		this.visibility = visibility;
 	}
 
-	/** return the name of the event
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the name of the event
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-	/** return the start time of the event
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the start time of the event
-	 */
-	public LocalDateTime getStartTime() {
-		return this.startTime;
-	}
-
-	/** return the end time of the event
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the end time of the event
-	 */
-	public LocalDateTime getEndTime() {
-		return this.endTime;
-	}
-
-	/** return the location of the event
+	/**
+	 * return the location of the event
 	 * 
 	 * @precondition none
 	 * @postcondition none
@@ -117,18 +76,8 @@ public class Event {
 		return this.location;
 	}
 
-	/** return the description of the event
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the description of the event
-	 */
-	public String getDescription() {
-		return this.description;
-	}
-
-	/** return the list of names of attendees for the event
+	/**
+	 * return the list of names of attendees for the event
 	 * 
 	 * @precondition none
 	 * @postcondition none
@@ -139,19 +88,8 @@ public class Event {
 		return this.attendees;
 	}
 
-	/** return the visibility of the event
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the visibility of the event
-	 */
-	public Visibility getVisibility() {
-		return this.visibility;
-	}
-
-
-	/** Convert the Event to a String representation.
+	/**
+	 * Convert the Event to a String representation.
 	 * 
 	 * @precondition none
 	 * @postcondition none
@@ -160,10 +98,11 @@ public class Event {
 	 */
 	@Override
 	public String toString() {
-		return this.name + "(" + this.startTime + "," + this.endTime + ")";
+		return this.getName() + "(" + this.getStartTime() + "," + this.getEndTime() + ")";
 	}
-	
-	/** Generate a multi-line full string representation of the event.
+
+	/**
+	 * Generate a multi-line full string representation of the event.
 	 * 
 	 * @precondition none
 	 * @postcondition none
@@ -171,16 +110,12 @@ public class Event {
 	 * @return Multi-line full string representation
 	 */
 	public String toStringFull() {
-		String fullEventDetails = "";
-		fullEventDetails += "Name: " + this.name + System.lineSeparator();
-		fullEventDetails += "Start time: " + this.startTime + System.lineSeparator();
-		fullEventDetails += "End time: " + this.endTime + System.lineSeparator();
-		fullEventDetails += "Location: " + this.location + System.lineSeparator();
-		fullEventDetails += "Description: " + this.description + System.lineSeparator();
-		fullEventDetails += "Visibility: " + this.visibility + System.lineSeparator();
-		fullEventDetails += "Attendees: " + String.join(", ", this.attendees) + System.lineSeparator();
+		String fullEventDetails = super.toStringFull();
 		
+		fullEventDetails += "Location: " + this.location + System.lineSeparator();
+		fullEventDetails += "Attendees: " + String.join(", ", this.attendees) + System.lineSeparator();
+
 		return fullEventDetails;
 	}
-	
+
 }

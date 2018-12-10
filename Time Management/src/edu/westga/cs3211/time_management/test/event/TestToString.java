@@ -17,7 +17,7 @@ class TestToString {
 		LocalDateTime start = LocalDateTime.now().plusDays(1);
 		LocalDateTime end = start.plusDays(1);
 		List<String> attendees = List.of();
-		Event event = new Event("Bob", start, end, "location", "description", attendees, Visibility.PUBLIC);
+		Event event = new Event("Bob", "description", Visibility.PUBLIC, start, end, "location", attendees);
 		
 		String result = event.toString();
 		

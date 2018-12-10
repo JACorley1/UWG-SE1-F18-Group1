@@ -19,7 +19,7 @@ public class TestAddEvent {
 		Calendar myCalendar = new  Calendar();
 		
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			myCalendar.addEvent(null);
+			myCalendar.addTimeCommitment(null);
 		});
 		
 	}
@@ -31,11 +31,11 @@ public class TestAddEvent {
 		LocalDateTime end = start.plusDays(1);
 		ArrayList<String> attendees = new ArrayList<String>();
 		attendees.add("jack");
-		Event myEvent = new Event("Name", start, end, "school", "homework", attendees, Visibility.PUBLIC);
+		Event myEvent = new Event("Name", "homework", Visibility.PUBLIC, start, end, "school", attendees);
 		
-		myCalendar.addEvent(myEvent);
+		myCalendar.addTimeCommitment(myEvent);
 		
-		assertEquals(1, myCalendar.getEvents().size());
+		assertEquals(1, myCalendar.getTimeCommitments().size());
 		
 	}
 

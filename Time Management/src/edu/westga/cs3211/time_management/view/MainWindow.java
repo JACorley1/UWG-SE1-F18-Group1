@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import edu.westga.cs3211.time_management.Main;
 import edu.westga.cs3211.time_management.model.Calendar;
 import edu.westga.cs3211.time_management.model.Event;
+import edu.westga.cs3211.time_management.model.TimeCommitment;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,21 +26,35 @@ import javafx.stage.Stage;
  */
 public class MainWindow {
 
+    /** The resources. */
     @FXML private ResourceBundle resources;
+    
+    /** The location. */
     @FXML private URL location;
-    @FXML private ListView<Event> eventList;
+    
+    /** The event list. */
+    @FXML private ListView<TimeCommitment> timeCommitmentList;
+    
+    /** The event details text. */
     @FXML private TextArea eventDetailsText;
     
+    /** The calendar. */
     private Calendar calendar;
 
+    /**
+     * Adds the event.
+     *
+     * @param event the event
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @FXML
     void addEvent(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader();
     	loader.setLocation(Main.class.getResource("view/AddEvent.fxml"));
     	loader.load();
-    	Parent parent= loader.getRoot();
-    	Scene scene= new Scene(parent);
-    	Stage addEventStage= new Stage();
+    	Parent parent = loader.getRoot();
+    	Scene scene = new Scene(parent);
+    	Stage addEventStage = new Stage();
     	addEventStage.setTitle("Add New Event");
     	addEventStage.setScene(scene);
     	addEventStage.initModality(Modality.APPLICATION_MODAL);
@@ -47,24 +62,32 @@ public class MainWindow {
     	addEventDialog.setCalendar(this.calendar);
     	addEventStage.showAndWait();
 
-        this.eventList.setItems(FXCollections.observableArrayList(this.calendar.getEvents()));
+        this.timeCommitmentList.setItems(FXCollections.observableArrayList(this.calendar.getTimeCommitments()));
     }
     
+    /**
+     * Select event.
+     *
+     * @param event the event
+     */
     @FXML
     void selectEvent(MouseEvent event) {
-    	Event eventSelected = this.eventList.getSelectionModel().getSelectedItem();
-    	if(eventSelected != null) {
-    		this.eventDetailsText.setText(eventSelected.toStringFull());
+    	var selectedCommitment = this.timeCommitmentList.getSelectionModel().getSelectedItem();
+    	if (selectedCommitment != null) {
+    		this.eventDetailsText.setText(selectedCommitment.toStringFull());
     	}
     }
 
+    /**
+     * Initialize.
+     */
     @FXML
     void initialize() {
-        assert eventList != null : "fx:id=\"eventList\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert eventDetailsText != null : "fx:id=\"eventDetailsText\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.timeCommitmentList != null : "fx:id=\"eventList\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.eventDetailsText != null : "fx:id=\"eventDetailsText\" was not injected: check your FXML file 'MainWindow.fxml'.";
 
         this.calendar = new Calendar();
-        this.eventList.setItems(FXCollections.observableArrayList(this.calendar.getEvents()));
+        this.timeCommitmentList.setItems(FXCollections.observableArrayList(this.calendar.getTimeCommitments()));
     }
 }
 
